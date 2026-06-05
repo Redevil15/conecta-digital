@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
@@ -12,15 +12,120 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base accesible: 18px mínimo. La barra de accesibilidad ajusta este valor,
+   y como Tailwind usa rem, TODA la interfaz escala al cambiarlo. */
+html {
+  font-size: 18px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/* Foco siempre visible para navegación por teclado. */
+:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Modo ALTO CONTRASTE (toggle en la barra de accesibilidad) ---- */
+/* Fuerza fondo negro / texto blanco sobre toda la interfaz, con acentos
+   amarillos para enlaces y botones. Cumple ampliamente WCAG AA de contraste. */
+html.hc {
+  background: #000;
+}
+html.hc body {
+  background: #000;
+  color: #fff;
+}
+html.hc *:not(svg):not(path):not(input):not(select):not(textarea) {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+html.hc a {
+  color: #ffd60a !important;
+  text-decoration: underline;
+}
+html.hc input,
+html.hc select,
+html.hc textarea {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+/* Botones primarios: amarillo sólido sobre negro. */
+html.hc button,
+html.hc a[role="button"],
+html.hc .btn-primary {
+  background-color: #ffd60a !important;
+  color: #000 !important;
+  border: 2px solid #ffd60a !important;
+}
+html.hc :focus-visible {
+  outline: 3px solid #ffd60a;
+}
+
+/* Contenido de las lecciones (markdown renderizado). */
+.contenido-leccion h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+}
+.contenido-leccion h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.5rem;
+}
+.contenido-leccion p {
+  font-size: 1.15rem;
+  margin: 0.75rem 0;
+}
+.contenido-leccion ul,
+.contenido-leccion ol {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+  font-size: 1.15rem;
+}
+.contenido-leccion ul {
+  list-style: disc;
+}
+.contenido-leccion ol {
+  list-style: decimal;
+}
+.contenido-leccion li {
+  margin: 0.4rem 0;
+}
+.contenido-leccion strong {
+  font-weight: 700;
+}
+.contenido-leccion img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid #ccc;
+  margin: 1rem 0;
+}
+.contenido-leccion blockquote {
+  border-left: 4px solid #f59e0b;
+  background: #fffbeb;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Utilidad para texto solo para lectores de pantalla. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
