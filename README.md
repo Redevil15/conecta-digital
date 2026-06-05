@@ -51,9 +51,6 @@ npm run db:seed
 npm run dev      # http://localhost:3000
 ```
 
-Usuario administrador sembrado: código **`ADMIN-BFF`**, PIN **`1234`**
-(cámbialo en `prisma/seed.ts` por uno privado antes de usarlo en producción).
-
 ## Scripts
 
 | Script | Acción |
