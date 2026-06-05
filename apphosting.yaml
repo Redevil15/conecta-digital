@@ -1,0 +1,22 @@
+# Configuración de Firebase App Hosting (corre sobre Cloud Run).
+runConfig:
+  minInstances: 0 # escala a cero cuando nadie usa la app = $0 en reposo
+  maxInstances: 2 # tope para que un pico no dispare costos
+
+env:
+  # Secretos: se leen de Secret Manager, nunca del repo.
+  - variable: DATABASE_URL
+    secret: DATABASE_URL
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: AUTH_SECRET
+    secret: AUTH_SECRET
+    availability:
+      - RUNTIME
+  # URL pública del sitio (para el QR de difusión). Reemplázala tras el primer deploy.
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: https://conecta-digital.web.app
+    availability:
+      - BUILD
+      - RUNTIME
