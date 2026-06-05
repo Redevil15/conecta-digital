@@ -1,0 +1,90 @@
+// Esquema de datos de Conecta Digital.
+// Documentación: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ProgressStatus {
+  STARTED
+  COMPLETED
+}
+
+model User {
+  id          String           @id @default(cuid())
+  nombre      String
+  codigo      String           @unique // código de acceso visible, ej "CD-4821"
+  pinHash     String // PIN hasheado con bcrypt (nunca en texto plano)
+  rangoEdad   String? // "60-69", "70+", etc. opcional
+  sitio       String? // casa de día / biblioteca de origen
+  role        Role             @default(USER)
+  createdAt   DateTime         @default(now())
+  progresos   LessonProgress[]
+  usosDiarios DailyUsage[]
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titulo      String
+  descripcion String
+  icono       String // nombre de un ícono (ej "mail")
+  orden       Int
+  lecciones   Lesson[]
+}
+
+model Lesson {
+  id           String           @id @default(cuid())
+  moduleId     String
+  module       Module           @relation(fields: [moduleId], references: [id])
+  slug         String
+  titulo       String
+  orden        Int
+  minutosEstim Int              @default(4)
+  progresos    LessonProgress[]
+
+  @@unique([moduleId, slug]) // un slug único dentro de cada módulo
+}
+
+model LessonProgress {
+  id           String         @id @default(cuid())
+  userId       String
+  user         User           @relation(fields: [userId], references: [id])
+  lessonId     String
+  lesson       Lesson         @relation(fields: [lessonId], references: [id])
+  status       ProgressStatus @default(STARTED)
+  iniciadaEn   DateTime       @default(now())
+  completadaEn DateTime?
+
+  @@unique([userId, lessonId]) // una sola fila de progreso por usuario+lección
+}
+
+model DailyUsage {
+  id       String   @id @default(cuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  fecha    DateTime @db.Date
+  segundos Int      @default(0)
+
+  @@unique([userId, fecha]) // una fila por usuario por día
+}
+
+model Testimonial {
+  id             String   @id @default(cuid())
+  nombre         String
+  rol            String // "usuario" | "aliado"
+  texto          String
+  consentimiento Boolean  @default(false)
+  aprobado       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+}
