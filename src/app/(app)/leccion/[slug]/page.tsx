@@ -58,7 +58,26 @@ export default async function LeccionPage({
 
       <div className="contenido-leccion mt-6">
         {contenido ? (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{contenido}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              // Cada imagen del Markdown se muestra con su descripción como pie de
+              // foto. Si el archivo aún no existe, el pie sigue explicando el paso.
+              img: ({ src, alt }) => (
+                <figure>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={typeof src === "string" ? src : ""} alt={alt ?? ""} loading="lazy" />
+                  {alt ? (
+                    <figcaption className="text-center text-base text-gray-600">
+                      {alt}
+                    </figcaption>
+                  ) : null}
+                </figure>
+              ),
+            }}
+          >
+            {contenido}
+          </ReactMarkdown>
         ) : (
           <p className="rounded-xl bg-amber-50 p-4 text-lg text-amber-800">
             El contenido de esta lección se está preparando. Aun así puedes
