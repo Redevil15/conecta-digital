@@ -1,27 +1,28 @@
 import Link from "next/link";
 import QRCode from "qrcode";
 import { listarAprobados } from "@/lib/testimonials.queries";
+import ModuleIcon from "@/components/ModuleIcon";
 
 export const dynamic = "force-dynamic";
 
 const MODULOS = [
   {
-    emoji: "✉️",
+    icono: "mail",
     titulo: "Correo electrónico",
     desc: "Crear tu cuenta, enviar correos y adjuntar fotos sin miedo.",
   },
   {
-    emoji: "💬",
+    icono: "message-circle",
     titulo: "WhatsApp",
     desc: "Escribir mensajes, mandar fotos y notas de voz, hacer videollamadas.",
   },
   {
-    emoji: "📄",
+    icono: "file-text",
     titulo: "Trámites en línea",
     desc: "Consultar tu CURP, sacar citas y descargar documentos oficiales.",
   },
   {
-    emoji: "🛡️",
+    icono: "shield",
     titulo: "Seguridad digital",
     desc: "Contraseñas seguras, reconocer fraudes y proteger tus datos.",
   },
@@ -87,9 +88,7 @@ export default async function LandingPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {MODULOS.map((m) => (
             <article key={m.titulo} className="flex gap-4 rounded-2xl border p-6">
-              <span className="text-5xl" aria-hidden="true">
-                {m.emoji}
-              </span>
+              <ModuleIcon name={m.icono} size="lg" />
               <div>
                 <h3 className="text-2xl font-bold">{m.titulo}</h3>
                 <p className="mt-1 text-lg text-gray-700">{m.desc}</p>

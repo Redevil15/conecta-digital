@@ -1,5 +1,7 @@
 "use client";
 
+import { Delete } from "lucide-react";
+
 type Props = {
   value: string;
   onChange: (v: string) => void;
@@ -57,9 +59,10 @@ export default function PinPad({
           type="button"
           onClick={borrar}
           aria-label="Borrar último dígito"
-          className="rounded-xl border-2 border-gray-700 bg-gray-100 py-4 text-xl font-bold text-gray-900 hover:bg-gray-200"
+          className="flex items-center justify-center gap-2 rounded-xl border-2 border-gray-700 bg-gray-100 py-4 text-xl font-bold text-gray-900 hover:bg-gray-200"
         >
-          ◀ Borrar
+          <Delete className="h-6 w-6" aria-hidden="true" />
+          Borrar
         </button>
         <button
           type="button"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Check } from "lucide-react";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import ProgressBar from "@/components/ProgressBar";
@@ -56,7 +57,7 @@ export default async function ModuloPage({
                     }`}
                     aria-hidden="true"
                   >
-                    {hecha ? "✓" : i + 1}
+                    {hecha ? <Check className="h-5 w-5" strokeWidth={3} /> : i + 1}
                   </span>
                   <span className="text-xl font-semibold">{l.titulo}</span>
                 </span>

@@ -2,15 +2,9 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import ProgressBar from "@/components/ProgressBar";
+import ModuleIcon from "@/components/ModuleIcon";
 
 export const dynamic = "force-dynamic";
-
-const EMOJI: Record<string, string> = {
-  mail: "✉️",
-  "message-circle": "💬",
-  "file-text": "📄",
-  shield: "🛡️",
-};
 
 export default async function InicioPage() {
   const session = await auth();
@@ -44,9 +38,7 @@ export default async function InicioPage() {
               className="block rounded-2xl border-2 p-6 transition hover:border-blue-700 hover:bg-blue-50 focus-visible:border-blue-700"
             >
               <div className="flex items-center gap-4">
-                <span className="text-5xl" aria-hidden="true">
-                  {EMOJI[m.icono] ?? "📘"}
-                </span>
+                <ModuleIcon name={m.icono} size="lg" />
                 <h2 className="text-2xl font-bold">{m.titulo}</h2>
               </div>
               <p className="mt-2 text-lg text-gray-700">{m.descripcion}</p>
