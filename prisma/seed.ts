@@ -83,17 +83,34 @@ async function main() {
     }
   }
 
-  // Crear el usuario administrador (cambia el PIN por uno privado).
+  // Crear/actualizar el usuario administrador.
+  // El PIN NUNCA se escribe en el código (el repo es público). Se toma de la
+  // variable de entorno ADMIN_PIN (definida en .env, que no se sube a git).
+  // - Si ADMIN_PIN está definido, se usa y se ACTUALIZA el PIN del admin al sembrar.
+  // - Si no, se usa "1234" solo para el primer arranque y NO se sobrescribe en reseeds.
+  const adminPin = process.env.ADMIN_PIN || "1234";
+  if (adminPin.length !== 4 || !/^\d{4}$/.test(adminPin)) {
+    throw new Error("ADMIN_PIN debe ser exactamente 4 dígitos numéricos.");
+  }
+  const adminHash = await bcrypt.hash(adminPin, 10);
+
   await db.user.upsert({
     where: { codigo: "ADMIN-BFF" },
-    update: {},
+    // Solo sobrescribe el PIN si ADMIN_PIN fue definido explícitamente.
+    update: process.env.ADMIN_PIN ? { pinHash: adminHash } : {},
     create: {
       nombre: "Brandon (Admin)",
       codigo: "ADMIN-BFF",
-      pinHash: await bcrypt.hash("1234", 10), // CÁMBIALO por un PIN privado
+      pinHash: adminHash,
       role: Role.ADMIN,
     },
   });
+
+  if (!process.env.ADMIN_PIN) {
+    console.warn(
+      "⚠ ADMIN_PIN no definido: se usó 1234 por defecto. Define ADMIN_PIN en .env y vuelve a sembrar para cambiarlo.",
+    );
+  }
 
   console.log("✔ Seed completado: 4 módulos, lecciones y admin (ADMIN-BFF).");
 }
