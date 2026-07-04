@@ -4,6 +4,9 @@ import type { NextAuthConfig } from "next-auth";
 // middleware (que corre en el edge runtime). El proveedor Credentials, que
 // necesita la base de datos, se agrega aparte en `auth.ts`.
 export const authConfig = {
+  // Confía en el host de la petición (necesario detrás de proxies como Vercel;
+  // evita el error "UntrustedHost" en producción).
+  trustHost: true,
   session: { strategy: "jwt" }, // sesión en token, sin tabla extra
   pages: { signIn: "/acceso" }, // nuestra pantalla de login
   providers: [], // se rellenan en auth.ts
