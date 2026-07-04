@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { marcarIniciada } from "@/lib/progress";
+import { marcarIniciada, marcarCompletada } from "@/lib/progress";
 import { leerContenidoLeccion } from "@/lib/content";
 import BotonCompletar from "@/components/BotonCompletar";
 
@@ -41,6 +41,15 @@ export default async function LeccionPage({
   const siguiente = idx < lecciones.length - 1 ? lecciones[idx + 1] : null;
 
   const contenido = await leerContenidoLeccion(leccion.module.slug, leccion.slug);
+
+  // "Terminar tema": marca completada esta última lección y regresa al tema.
+  const lessonId = leccion.id;
+  const moduleSlug = leccion.module.slug;
+  async function terminarTema() {
+    "use server";
+    await marcarCompletada(lessonId);
+    redirect(`/modulo/${moduleSlug}`);
+  }
 
   return (
     <article className="mx-auto max-w-2xl px-6 py-8">
@@ -109,12 +118,14 @@ export default async function LeccionPage({
             Siguiente →
           </Link>
         ) : (
-          <Link
-            href={`/modulo/${leccion.module.slug}`}
-            className="rounded-xl bg-blue-700 px-6 py-3 text-lg font-semibold text-white hover:bg-blue-800"
-          >
-            Terminar tema →
-          </Link>
+          <form action={terminarTema}>
+            <button
+              type="submit"
+              className="rounded-xl bg-blue-700 px-6 py-3 text-lg font-semibold text-white hover:bg-blue-800"
+            >
+              Terminar tema →
+            </button>
+          </form>
         )}
       </nav>
     </article>
