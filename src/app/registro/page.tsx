@@ -8,7 +8,6 @@ export default function RegistroPage() {
   const [nombre, setNombre] = useState("");
   const [pin, setPin] = useState("");
   const [rangoEdad, setRangoEdad] = useState("");
-  const [sitio, setSitio] = useState("");
   const [codigo, setCodigo] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
@@ -24,7 +23,7 @@ export default function RegistroPage() {
       const res = await fetch("/api/registro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, pin, rangoEdad, sitio }),
+        body: JSON.stringify({ nombre, pin, rangoEdad }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "No se pudo registrar.");
@@ -119,19 +118,6 @@ export default function RegistroPage() {
                 <option value="70+">70 años o más</option>
                 <option value="menos-60">Menos de 60</option>
               </select>
-            </div>
-            <div>
-              <label htmlFor="sitio" className="block text-lg font-medium">
-                ¿Dónde te registras?
-              </label>
-              <input
-                id="sitio"
-                type="text"
-                value={sitio}
-                onChange={(e) => setSitio(e.target.value)}
-                className="mt-1 w-full rounded-xl border-2 border-gray-400 px-4 py-3 text-lg"
-                placeholder="Ej. Casa de día, Biblioteca…"
-              />
             </div>
           </div>
         </details>
