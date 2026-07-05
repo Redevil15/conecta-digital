@@ -25,18 +25,18 @@ type Demo = {
 };
 
 const demo: Demo[] = [
-  { codigo: "CD-4821", nombre: "María López", rangoEdad: "70+", sitio: "Casa de día Reforma", completed: ["correo-1", "correo-2", "correo-3"], started: ["correo-4"], minutos: 26 },
-  { codigo: "CD-3907", nombre: "José Ramírez", rangoEdad: "60-69", sitio: "Biblioteca Central", completed: ["whatsapp-1", "whatsapp-2"], started: ["whatsapp-3"], minutos: 14 },
+  { codigo: "CD-4821", nombre: "María López", rangoEdad: "70+", sitio: "casa propia", completed: ["correo-1", "correo-2", "correo-3"], started: ["correo-4"], minutos: 26 },
+  { codigo: "CD-3907", nombre: "José Ramírez", rangoEdad: "60-69", sitio: "casa propia", completed: ["whatsapp-1", "whatsapp-2"], started: ["whatsapp-3"], minutos: 14 },
   { codigo: "CD-5162", nombre: "Guadalupe Hernández", rangoEdad: "70+", sitio: "Casa de día Reforma", completed: ["correo-1", "correo-2", "correo-3", "correo-4", "correo-5", "whatsapp-1", "whatsapp-2", "whatsapp-3"], started: [], minutos: 52 },
-  { codigo: "CD-2748", nombre: "Francisco Torres", rangoEdad: "60-69", sitio: null, completed: [], started: ["seguridad-1"], minutos: 4 },
-  { codigo: "CD-6033", nombre: "Rosa Martínez", rangoEdad: "70+", sitio: "Casa de día San Juan", completed: ["tramites-1", "tramites-2", "whatsapp-1"], started: ["tramites-3"], minutos: 21 },
+  { codigo: "CD-2748", nombre: "Francisco Torres", rangoEdad: "60-69", sitio: "casa propia", completed: [], started: ["seguridad-1"], minutos: 4 },
+  { codigo: "CD-6033", nombre: "Rosa Martínez", rangoEdad: "70+", sitio: "casa propia", completed: ["tramites-1", "tramites-2", "whatsapp-1"], started: ["tramites-3"], minutos: 21 },
   { codigo: "CD-3519", nombre: "Antonio Gómez", rangoEdad: "60-69", sitio: "Biblioteca Central", completed: ["seguridad-1", "seguridad-2", "seguridad-3", "seguridad-4"], started: [], minutos: 33 },
-  { codigo: "CD-4406", nombre: "Carmen Díaz", rangoEdad: "70+", sitio: "Casa de día San Juan", completed: ["correo-1", "correo-2"], started: ["correo-3"], minutos: 11 },
-  { codigo: "CD-5877", nombre: "Miguel Sánchez", rangoEdad: "menos-60", sitio: null, completed: ["whatsapp-1", "whatsapp-2", "whatsapp-3", "whatsapp-4", "whatsapp-5", "correo-1"], started: [], minutos: 41 },
-  { codigo: "CD-2291", nombre: "Juana Flores", rangoEdad: "70+", sitio: "Casa de día Reforma", completed: [], started: ["correo-1"], minutos: 3 },
-  { codigo: "CD-6714", nombre: "Pedro Vargas", rangoEdad: "60-69", sitio: "Biblioteca Norte", completed: ["correo-1", "correo-2", "correo-3", "correo-4", "tramites-1"], started: ["correo-5"], minutos: 29 },
+  { codigo: "CD-4406", nombre: "Carmen Díaz", rangoEdad: "70+", sitio: "casa propia", completed: ["correo-1", "correo-2"], started: ["correo-3"], minutos: 11 },
+  { codigo: "CD-5877", nombre: "Miguel Sánchez", rangoEdad: "menos-60", sitio: "casa propia", completed: ["whatsapp-1", "whatsapp-2", "whatsapp-3", "whatsapp-4", "whatsapp-5", "correo-1"], started: [], minutos: 41 },
+  { codigo: "CD-2291", nombre: "Juana Flores", rangoEdad: "70+", sitio: "casa propia", completed: [], started: ["correo-1"], minutos: 3 },
+  { codigo: "CD-6714", nombre: "Pedro Vargas", rangoEdad: "60-69", sitio: "casa propia", completed: ["correo-1", "correo-2", "correo-3", "correo-4", "tramites-1"], started: ["correo-5"], minutos: 29 },
   { codigo: "CD-3348", nombre: "Alicia Mendoza", rangoEdad: "70+", sitio: "Casa de día San Juan", completed: ["correo-1", "whatsapp-1", "seguridad-1"], started: ["tramites-1"], minutos: 18 },
-  { codigo: "CD-5095", nombre: "Ricardo Castillo", rangoEdad: "60-69", sitio: "Biblioteca Central", completed: ["seguridad-1", "seguridad-2", "correo-1", "correo-2"], started: [], minutos: 24 },
+  { codigo: "CD-5095", nombre: "Ricardo Castillo", rangoEdad: "60-69", sitio: "casa propia", completed: ["seguridad-1", "seguridad-2", "correo-1", "correo-2"], started: [], minutos: 24 },
 ];
 
 const codigos = demo.map((d) => d.codigo);
