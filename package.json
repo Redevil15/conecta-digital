@@ -9,7 +9,9 @@
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:seed": "tsx prisma/seed.ts",
-    "db:migrate": "prisma migrate deploy"
+    "db:migrate": "prisma migrate deploy",
+    "db:demo": "tsx prisma/seed-demo.ts",
+    "db:demo:clean": "tsx prisma/seed-demo.ts --clean"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
